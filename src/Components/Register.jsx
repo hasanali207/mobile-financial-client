@@ -12,7 +12,6 @@ const Register = () => {
 
   const onSubmit = async (data) => {
     const { email, PIN, fullName, number } = data;
-    
 
     console.log("Password:", PIN); // Log the password to debug
     if (!/^\d{5}$/.test(PIN)) {

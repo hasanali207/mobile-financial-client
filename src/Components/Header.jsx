@@ -10,7 +10,7 @@ const Header = () => {
 		</a>
 		<ul className="items-stretch hidden space-x-3 lg:flex">
 			<li className="flex">
-				<NavLink to={'/register'} rel="noopener noreferrer" href="#" className="flex items-center px-4 -mb-1 border-b-2 dark:border- text-violet-400 border-violet-400">Dashboard</NavLink>
+				<NavLink to={'/dashboard'} rel="noopener noreferrer" href="#" className="flex items-center px-4 -mb-1 border-b-2 dark:border- text-violet-400 border-violet-400">Dashboard</NavLink>
 			</li>
 			<li className="flex">
 				<a rel="noopener noreferrer" href="#" className="flex items-center px-4 -mb-1 border-b-2 dark:border-">Link</a>

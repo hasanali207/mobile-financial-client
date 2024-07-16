@@ -1,25 +1,18 @@
-import { useQuery } from "@tanstack/react-query"
-import useAuth from "./useAuth"
-import useAxiosSecure from "./useAxioxSecure"
+import { useQuery } from "@tanstack/react-query";
+import useAxiosSecure from "./useAxioxSecure";
 
+const useModerator = (userEmail) => {
+  const axiosSecure = useAxiosSecure();
 
-const useModerator = () => {
+  const { data: isModerator, isLoading: isModeratorLoading } = useQuery({
+    queryKey: ["isModerator", userEmail],
+    queryFn: async () => {
+      const res = await axiosSecure.get(`/users/moderator/${userEmail}`);
+      return res.data?.moderator || false; // Assuming moderator field is boolean
+    },
+  });
 
-    const {user} = useAuth()
-    const axiosSecure = useAxiosSecure()
+  return [isModerator, isModeratorLoading];
+};
 
-    const {data: isModerator, isPending: isModeratorLoading} = useQuery({
-        queryKey : [user?.email, 'isModerator'],
-        queryFn: async () =>{
-            const res = await axiosSecure.get(`/users/admin/${user?.email}`)
-            console.log(res.data)
-            return res.data?.moderator
-        }
-
-    })
-    return [isModerator, isModeratorLoading]
-
- 
-}
-
-export default useModerator
+export default useModerator;

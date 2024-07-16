@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { Link, useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
@@ -7,25 +7,42 @@ import useAxiosPublic from '../Hooks/useAxiosPublic';
 const Login = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const navigate = useNavigate();
-  const from = "/";
+  const [user, setUser] = useState(null);
+  const axiosPublic = useAxiosPublic();
 
-  const axiosInstance = useAxiosPublic();
+  useEffect(() => {
+    const token = localStorage.getItem('access-token');
+    if (token) {
+      axiosPublic.get('/user', {
+        headers: { Authorization: `Bearer ${token}` },
+      })
+      .then(res => {
+        setUser(res.data.userData);
+      })
+      .catch((error) => {
+        localStorage.removeItem('access-token');
+        setUser(null);
+      });
+    }
+  }, [axiosPublic]);
 
   const onSubmit = async (data) => {
-    console.log(data);
     try {
-      const res = await axiosInstance.post('/login', data);
+      const res = await axiosPublic.post('/login', data);
 
-      if (res.data.user) {
+      if (res.data.token) {
+        localStorage.setItem('access-token', res.data.token);
+        localStorage.setItem('user', JSON.stringify(res.data.user)); // Ensure user data is a string
+        setUser(res.data.user);
         toast.success("Login successful!");
-        navigate(from, { replace: true });
+        navigate('/dashboard'); // Navigate after setting the user
       } else {
         toast.error("Login failed: User not found or invalid credentials");
       }
     } catch (error) {
       toast.error("Login failed: " + error.message);
     }
-  }
+  };
 
   return (
     <div className="hero min-h-screen bg-base-200">
@@ -60,7 +77,7 @@ const Login = () => {
                   <span className="label-text">Mobile Number</span>
                 </label>
                 <input
-                  type="text" // Assuming number can include non-numeric characters
+                  type="text"
                   placeholder="number"
                   className="input input-bordered"
                   {...register("number", { required: true })}

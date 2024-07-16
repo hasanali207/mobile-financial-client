@@ -3,6 +3,9 @@ import Main from "../Layout/Main";
 import Home from "../Components/Home";
 import Register from "../Components/Register";
 import Login from "../Components/Login";
+import Dashboard from "../Layout/Dashboard";
+import PrivateRoute from "../Private/PrivateRoute";
+import SendMoneyForm from "../Dashboard/User/SendMoneyForm";
 
 const router = createBrowserRouter([
     {
@@ -24,5 +27,18 @@ const router = createBrowserRouter([
         },
     ]
     },
+    {
+        path: 'dashboard',
+        element: <PrivateRoute><Dashboard></Dashboard></PrivateRoute>,
+        children:[
+            {   
+                path:'profile',
+                element:  <h1>Hello</h1>
+            },
+            {   
+                path:'sendMoney',
+                element:  <SendMoneyForm></SendMoneyForm>
+            },
+]}
   ]);
   export default router;
