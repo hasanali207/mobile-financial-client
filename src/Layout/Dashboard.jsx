@@ -30,6 +30,7 @@ const Dashboard = () => {
                             <>
                                 <li><NavLink to='/dashboard/profile'>My Profile</NavLink></li>
                                 <li><NavLink to='/dashboard/sendMoney'>Send Money</NavLink></li>
+                                <li><NavLink to='/dashboard/cashout'>Cash Out</NavLink></li>
                                 
                             </>
                         )}

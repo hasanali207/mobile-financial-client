@@ -4,36 +4,35 @@ import toast from 'react-hot-toast';
 import { Link } from 'react-router-dom';
 import useAxiosPublic from '../../Hooks/useAxiosPublic';
 
-const SendMoneyForm = () => {
+const CashOutForm = () => {
   const { register, handleSubmit, formState: { errors } } = useForm();
   const axiosInstance = useAxiosPublic();
 
   // Parse user data from local storage
   const userData = JSON.parse(localStorage.getItem('user'));
   const senderEmail = userData?.email;
-
   const onSubmit = async (data) => {
     // Add senderEmail to data
-    const requestData = { ...data, senderEmail };
+    const requestData = { ...data, senderEmail};
     console.log(requestData);
     try {
-      const res = await axiosInstance.post('/transactions/send', requestData);
-      toast.success("Send Money successful!");
+      const res = await axiosInstance.post('/transactions/cashout', requestData);
+      toast.success("Cash Out Money successful!");
     } catch (error) {
       if (error.response) {
         // The request was made and the server responded with a status code
         // that falls out of the range of 2xx
         if (error.response.data && error.response.data.message) {
-          toast.error('Send Money failed: ' + error.response.data.message);
+          toast.error('Cashout failed: ' + error.response.data.message);
         } else {
-          toast.error('Send Money failed: An unexpected error occurred.');
+          toast.error('Cashout failed: An unexpected error occurred.');
         }
       } else if (error.request) {
         // The request was made but no response was received
-        toast.error('Send Money failed: No response from server.');
+        toast.error('Cashout failed: No response from server.');
       } else {
         // Something happened in setting up the request that triggered an Error
-        toast.error('Send Money failed: ' + error.message);
+        toast.error('Cashout: ' + error.message);
       }
     }
   
@@ -97,4 +96,4 @@ const SendMoneyForm = () => {
   );
 };
 
-export default SendMoneyForm;
+export default CashOutForm;

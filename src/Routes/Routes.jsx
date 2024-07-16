@@ -6,6 +6,7 @@ import Login from "../Components/Login";
 import Dashboard from "../Layout/Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
 import SendMoneyForm from "../Dashboard/User/SendMoneyForm";
+import CashOutForm from "../Dashboard/User/CashOutForm";
 
 const router = createBrowserRouter([
     {
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
             {   
                 path:'sendMoney',
                 element:  <SendMoneyForm></SendMoneyForm>
+            },
+            {   
+                path:'cashout',
+                element:  <CashOutForm></CashOutForm>
             },
 ]}
   ]);
