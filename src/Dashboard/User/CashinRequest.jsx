@@ -12,10 +12,11 @@ const CashInRequest = () => {
     // Parse user data from local storage
     const userData = JSON.parse(localStorage.getItem('user'));
     const senderEmail = userData?.email;
-    const status = 'pending'    
+    const status = 'pending'  
+    const transType = 'cashin'  
     const onSubmit = async (data) => {
       // Add senderEmail to data
-      const requestData = { ...data, senderEmail, status };
+      const requestData = { ...data, senderEmail, status, transType };
       console.log(requestData);
       try {
         const res = await axiosInstance.post('/transaction/cashin', requestData);
@@ -48,20 +49,7 @@ const CashInRequest = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         <div className="card-body">
           
-          <div className="form-control">
-            <label className="label">
-              <span className="label-text">Recipient Email</span>
-            </label>
-            <input
-              type="email"
-              placeholder="Email"
-              className="input input-bordered"
-              {...register("recipientEmail", { required: true })}
-            />
-            {errors.recipientEmail && (
-              <span className="text-red-500">Recipient Email is required</span>
-            )}
-          </div>
+        
           <div className="form-control">
             <label className="label">
               <span className="label-text">Amount</span>
@@ -91,7 +79,7 @@ const CashInRequest = () => {
             )}
           </div>
           <div className="form-control mt-6 p-0">
-            <button type="submit" className="btn btn-neutral">Send Money</button>
+            <button type="submit" className="btn btn-neutral">Cash In</button>
           </div>
         
         </div>
