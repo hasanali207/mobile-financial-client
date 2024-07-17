@@ -7,6 +7,8 @@ import Dashboard from "../Layout/Dashboard";
 import PrivateRoute from "../Private/PrivateRoute";
 import SendMoneyForm from "../Dashboard/User/SendMoneyForm";
 import CashOutForm from "../Dashboard/User/CashOutForm";
+import CashInApproval from "../Dashboard/Agent/CashinApproval";
+import CashInRequest from "../Dashboard/User/CashinRequest";
 
 const router = createBrowserRouter([
     {
@@ -43,6 +45,14 @@ const router = createBrowserRouter([
             {   
                 path:'cashout',
                 element:  <CashOutForm></CashOutForm>
+            },
+            {   
+                path:'cashin',
+                element:  <CashInRequest></CashInRequest>
+            },
+            {   
+                path:'cashinApproval',
+                element:  <CashInApproval></CashInApproval>
             },
 ]}
   ]);
